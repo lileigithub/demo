@@ -1,7 +1,11 @@
 package algorithm.search;
 
+import algorithm.queue.LinkedQueue;
+import algorithm.stack.LinkedBag;
+import sun.plugin.javascript.navig.Link;
+
 /**
- * 无序链表符号表
+ * 不排序链表符号表
  * @author lilei
  * @date 2023/1/16 14:29
  * sequential [sɪˈkwenʃl] n.序列
@@ -12,9 +16,9 @@ public class SequentialSearchST<Key, Value> {
 
 
     private class Node {
-        private Key key;
+        private final Key key;
         private Value val;
-        private Node next;
+        private final Node next;
 
         public Node(Key key, Value val, Node next) {
             this.key = key;
@@ -31,6 +35,7 @@ public class SequentialSearchST<Key, Value> {
             }
         }
         first = new Node(key, value, first);
+        N++;
     }
 
     public Value get(Key key) {
@@ -40,6 +45,18 @@ public class SequentialSearchST<Key, Value> {
         return null;
     }
 
+    public Iterable<Key> keys(){
+        LinkedBag<Key> bag = new LinkedBag<>();
+        for (Node x = first; x != null; x = x.next) {
+            bag.add(x.key);
+        }
+        return bag;
+    }
+
+    public int size() {
+        return N;
+    }
+
 
     public static void main(String[] args) {
         SequentialSearchST<String, Integer> st = new SequentialSearchST<>();
@@ -47,13 +64,11 @@ public class SequentialSearchST<Key, Value> {
         st.put("b", 2);
         st.put("c", 3);
         st.put("d", 4);
-        st.put("b", 5);
 
-        System.out.println(st.get("a"));
-        System.out.println(st.get("b"));
-        System.out.println(st.get("c"));
-        System.out.println(st.get("d"));
-        System.out.println(st.get("e"));
+        for (String key : st.keys()) {
+            System.out.println(key);
+        }
+        System.out.println("size: " + st.size());
 
     }
 }

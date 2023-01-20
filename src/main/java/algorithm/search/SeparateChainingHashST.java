@@ -1,5 +1,8 @@
 package algorithm.search;
 
+import algorithm.queue.LinkedQueue;
+import algorithm.stack.LinkedBag;
+
 /**
  * 拉链法散列表
  * @author lilei
@@ -8,8 +11,8 @@ package algorithm.search;
  */
 public class SeparateChainingHashST<Key, Value> {
     private int N;//键值对总数
-    private int M;//散列表的大小
-    private SequentialSearchST<Key, Value>[] st;
+    private final int M;//散列表的大小
+    private final SequentialSearchST<Key, Value>[] st;
 
     public SeparateChainingHashST() {
         this(997);
@@ -28,26 +31,44 @@ public class SeparateChainingHashST<Key, Value> {
     }
 
     public void put(Key key, Value val) {
+        if(!contains(key)) N++;
         st[hash(key)].put(key, val);
     }
 
     public Value get(Key key) {
+        if(st[hash(key)] == null) return null;
         return st[hash(key)].get(key);
+    }
+
+    public boolean contains(Key key) {
+        return get(key) != null;
+    }
+
+    public Iterable<Key> keys(){
+        LinkedQueue<Key> queue = new LinkedQueue<>();
+        for (SequentialSearchST<Key, Value> kv : st) {
+            Iterable<Key> keys = kv.keys();
+            for (Key key : keys) {
+                queue.enqueue(key);
+            }
+        }
+        return queue;
+    }
+
+    public int size(){
+        return N;
     }
 
     public static void main(String[] args) {
         SeparateChainingHashST<String, Integer> st = new SeparateChainingHashST<>();
-        st.put("a", 1);
-        st.put("b", 2);
-        st.put("c", 3);
-        st.put("d", 4);
-        st.put("b", 5);
+        st.put("Brown, Bryan (I)", 1);
+        st.put("Henderson, Dick (II)", 2);
+        st.put("Gray, Ian (I)", 3);
+        st.put("Woodward, Edward", 4);
 
-        System.out.println(st.get("a"));
-        System.out.println(st.get("b"));
-        System.out.println(st.get("c"));
-        System.out.println(st.get("d"));
-        System.out.println(st.get("e"));
+        for (String key : st.keys()) {
+            System.out.println(key);
+        }
     }
 
 }
