@@ -4,6 +4,7 @@ import java.util.Iterator;
 
 /**
  * 算法1.4 包 链表实现
+ * 这种实现方式其实是个只能进不能出的 特殊的栈
  * @author lilei
  * @date 2022/12/22 15:33
  */

@@ -1,7 +1,6 @@
 package algorithm.search;
 
 import algorithm.queue.LinkedQueue;
-import algorithm.stack.LinkedBag;
 
 /**
  * 拉链法散列表
