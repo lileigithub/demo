@@ -30,12 +30,12 @@ public class SeparateChainingHashST<Key, Value> {
     }
 
     public void put(Key key, Value val) {
-        if(!contains(key)) N++;
+        if (!contains(key)) N++;
         st[hash(key)].put(key, val);
     }
 
     public Value get(Key key) {
-        if(st[hash(key)] == null) return null;
+        if (st[hash(key)] == null) return null;
         return st[hash(key)].get(key);
     }
 
@@ -43,7 +43,7 @@ public class SeparateChainingHashST<Key, Value> {
         return get(key) != null;
     }
 
-    public Iterable<Key> keys(){
+    public Iterable<Key> keys() {
         LinkedQueue<Key> queue = new LinkedQueue<>();
         for (SequentialSearchST<Key, Value> kv : st) {
             Iterable<Key> keys = kv.keys();
@@ -54,7 +54,7 @@ public class SeparateChainingHashST<Key, Value> {
         return queue;
     }
 
-    public int size(){
+    public int size() {
         return N;
     }
 
